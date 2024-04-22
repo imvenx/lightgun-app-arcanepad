@@ -2,56 +2,53 @@
   <h1>
     Apps View
   </h1>
-  {{ sharedState }}
+  {{ selectedApp }}
 </template>
 
 <script setup lang="ts">
-import { sharedState } from 'src/stores/SharedState';
+import { SharedState, sharedState } from 'src/stores/SharedState';
 import { AEventName, Arcane, ArcanePad, IframePadConnectEvent, IframePadDisconnectEvent } from 'arcanepad-web-sdk';
 import Player from 'src/components/Player.vue';
 import { Apps, MouseButtonHoldEvent, MouseButtonPressEvent, SelectAppEvent, UpdateSharedStateEvent } from 'src/models/models';
-import { Ref, onMounted, ref } from 'vue';
+import { Ref, onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import reloadSound1 from 'assets/sounds/shotgun_reload_1.wav'
-import reloadSound2 from 'assets/sounds/shotgun_reload_2.wav'
+import reloadSound2 from 'assets/sounds/shotgun/shotgun_reload_2.wav'
 import { playSound } from 'src/utils';
 
 const router = useRouter()
-const pads: Ref<ArcanePad[]> = ref([])
-const isAppPaused = ref(false)
+const selectedApp: Ref<Apps> = ref(sharedState.value.selectedApp)
 
-const updateSharedState = () => Arcane.msg.emitToPads(new UpdateSharedStateEvent(sharedState.value))
+const updateSharedState = () => {
+  Arcane.msg.emitToPads(new UpdateSharedStateEvent(sharedState.value))
+}
 
 onMounted(() => {
-  // init()
-  // Arcane.msg.emit(new MouseButtonPressEvent('Left'), [])
 
   Arcane.msg.on('SelectApp', ({ app }: SelectAppEvent) => {
     setTimeout(() => playSound(reloadSound2), 200);
 
-    if (app === sharedState.value.currentRoute) {
-      enterApp(app)
-    } else {
-      selectApp(app)
-    }
+    if (app !== selectedApp.value) selectApp(app)
+    else enterApp(app)
 
   })
 })
 
+onUnmounted(() => {
+  Arcane.msg.off('SelectApp')
+})
+
 function selectApp(app: Apps) {
 
-  // router.push({ name: app + 'View' })
+  selectedApp.value = app
 
-  sharedState.value.currentRoute = app
-  updateSharedState()
 
-  // if (sharedState.value.currentRoute != app) {
-  //   router.push({ name: app })
-  // }
+
 }
 
 function enterApp(app: Apps) {
-  window.dispatchEvent(new CustomEvent('EnterApp', {}))
+  router.push({ name: app + 'View' })
+  sharedState.value.selectedApp = app
+  updateSharedState()
 }
 
 </script>

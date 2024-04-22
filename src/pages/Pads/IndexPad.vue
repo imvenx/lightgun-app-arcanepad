@@ -24,9 +24,7 @@ const router = useRouter()
 onMounted(() => {
   Arcane.msg.on('UpdateSharedState', ({ newSharedState }: UpdateSharedStateEvent) => {
 
-    // if (sharedState.value.currentRoute != newSharedState.currentRoute) {
-    //   router.push({ name: newSharedState.currentRoute + 'Pad' })
-    // }
+    router.push({ name: newSharedState.selectedApp + 'Pad' })
 
     sharedState.value = newSharedState
   })
