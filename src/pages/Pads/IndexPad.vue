@@ -21,10 +21,15 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
-onMounted(() => {
-  Arcane.msg.on('UpdateSharedState', ({ newSharedState }: UpdateSharedStateEvent) => {
 
-    router.push({ name: newSharedState.selectedApp + 'Pad' })
+onMounted(() => {
+
+  Arcane.msg.on('UpdateSharedState', ({ newSharedState }: UpdateSharedStateEvent) => {
+    if (newSharedState.inApp) {
+      router.push({ name: newSharedState.selectedApp + 'Pad' })
+    } else {
+      router.push({ name: 'AppsPad' })
+    }
 
     sharedState.value = newSharedState
   })

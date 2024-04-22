@@ -1,8 +1,10 @@
 <template>
-  <h1>
-    Apps View
-  </h1>
-  {{ selectedApp }}
+  <div style="text-align: center;">
+    <h1>
+      {{ selectedApp }}
+    </h1>
+    <h5>Press start on your phone</h5>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -13,14 +15,10 @@ import { Apps, MouseButtonHoldEvent, MouseButtonPressEvent, SelectAppEvent, Upda
 import { Ref, onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import reloadSound2 from 'assets/sounds/shotgun/shotgun_reload_2.wav'
-import { playSound } from 'src/utils';
+import { playSound, updateSharedState } from 'src/utils';
 
 const router = useRouter()
 const selectedApp: Ref<Apps> = ref(sharedState.value.selectedApp)
-
-const updateSharedState = () => {
-  Arcane.msg.emitToPads(new UpdateSharedStateEvent(sharedState.value))
-}
 
 onMounted(() => {
 
@@ -41,13 +39,12 @@ function selectApp(app: Apps) {
 
   selectedApp.value = app
 
-
-
 }
 
 function enterApp(app: Apps) {
   router.push({ name: app + 'View' })
   sharedState.value.selectedApp = app
+  sharedState.value.inApp = true
   updateSharedState()
 }
 

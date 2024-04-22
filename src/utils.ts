@@ -1,3 +1,7 @@
+import { Arcane } from "arcanepad-web-sdk";
+import { UpdateSharedStateEvent } from "./models/models";
+import { sharedState } from "./stores/SharedState";
+
 const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
 const audioBuffers: { [url: string]: AudioBuffer } = {};
 const gainNode = audioCtx.createGain(); // Create a GainNode
@@ -38,4 +42,8 @@ export function playSound(url: string, volume: number = .05): void {
       source.start(0);
     });
   }
+}
+
+export const updateSharedState = () => {
+  Arcane.msg.emitToPads(new UpdateSharedStateEvent(sharedState.value))
 }

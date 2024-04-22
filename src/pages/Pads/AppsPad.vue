@@ -18,17 +18,12 @@ import { AttackedEvent } from 'src/models';
 import { Apps, MouseButtonPressEvent, SelectAppEvent } from 'src/models/models';
 import { padState } from 'src/stores/PadState';
 import { sharedState } from 'src/stores/SharedState';
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 
 const selectedApp = ref(sharedState.value.selectedApp)
 
 onMounted(() => {
-  // Arcane.msg.on('Attacked', ({ damage }: AttackedEvent) => { alert('taken damage: ' + damage) })
-  // setInterval(() => {
-  //   Arcane.msg.emit(new MouseButtonPressEvent('Left'), [])
-  // }, 1000)
+  Arcane.pad?.setScreenOrientationPortrait()
 })
-
-
 
 </script>

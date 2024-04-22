@@ -12,34 +12,54 @@
       <Player :pad="pad" />
     </div>
   </div> -->
-
   <RouterView />
 </template>
 
 <script setup lang="ts">
+import { AEventName, Arcane, IframePadConnectEvent } from 'arcanepad-web-sdk';
+import { sharedState } from 'src/stores/SharedState';
+import { updateSharedState } from 'src/utils';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-// async function init() {
-//   let initialState = await Arcane.arcaneClientInitialized()
-//   pads.value = initialState.pads
+const router = useRouter()
 
-//   Arcane.msg.on(AEventName.IframePadConnect, (e: IframePadConnectEvent) => {
-//     const padExists = pads.value.some(p => p.iframeId === e.iframeId)
-//     if (padExists) return
+onMounted(() => {
+  init()
+  Arcane.msg.on('ExitApp', () => {
+    exitApp()
+  })
+})
 
-//     const padToAdd = new ArcanePad({ deviceId: e.deviceId, internalId: e.internalId, iframeId: e.iframeId, isConnected: true, user: e.user })
-//     pads.value.push(padToAdd)
-//   })
+function exitApp() {
+  router.push({ name: 'AppsView' })
+  sharedState.value.inApp = false
+  updateSharedState()
+}
 
-//   Arcane.msg.on(AEventName.IframePadDisconnect, (e: IframePadDisconnectEvent) => {
-//     const padToRemove = pads.value.find(p => p.iframeId === e.iframeId)
-//     if (!padToRemove) return
+async function init() {
+  // let initialState = await Arcane.arcaneClientInitialized()
+  // pads.value = initialState.pads
 
-//     pads.value.splice(pads.value.indexOf(padToRemove), 1)
-//   })
+  Arcane.msg.on(AEventName.IframePadConnect, (e: IframePadConnectEvent) => {
+    updateSharedState()
+    // const padExists = pads.value.some(p => p.iframeId === e.iframeId)
+    // if (padExists) return
 
-//   // Arcane.msg.on(AEventName.PauseApp, (e) => isAppPaused.value = true)
-//   // Arcane.msg.on(AEventName.ResumeApp, (e) => isAppPaused.value = false)
-// }
+    // const padToAdd = new ArcanePad({ deviceId: e.deviceId, internalId: e.internalId, iframeId: e.iframeId, isConnected: true, user: e.user })
+    // pads.value.push(padToAdd)
+  })
+
+  // Arcane.msg.on(AEventName.IframePadDisconnect, (e: IframePadDisconnectEvent) => {
+  //   const padToRemove = pads.value.find(p => p.iframeId === e.iframeId)
+  //   if (!padToRemove) return
+
+  //   pads.value.splice(pads.value.indexOf(padToRemove), 1)
+  // })
+
+  // Arcane.msg.on(AEventName.PauseApp, (e) => isAppPaused.value = true)
+  // Arcane.msg.on(AEventName.ResumeApp, (e) => isAppPaused.value = false)
+}
 </script>
 
 <style scoped></style>
