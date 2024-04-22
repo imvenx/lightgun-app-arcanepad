@@ -10,9 +10,9 @@
       <div class="gunButton" @touchstart="startCalibrateSequence()">
         Calibrate
       </div>
-      <div class="gunButton" :style="`color:${isShootEnabled ? 'yellowgreen' : 'orange'}`"
+      <div class="gunButton" :style="`color:${isShootEnabled ? 'orange' : 'yellowgreen'}`"
         @touchstart="toggleShootEnabled()">
-        Weapon {{ isShootEnabled ? 'Enabled' : 'Disabled' }}
+        {{ isShootEnabled ? 'Disable' : 'Enable' }} Weapon
       </div>
     </div>
     <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
@@ -101,6 +101,7 @@ function resetBackgroundColorOnRelease(event: any) {
 }
 
 function startCalibrateSequence() {
+  Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceTopLeft'))
   isCalibrateSequenceTopLeft = true
   playSound(reloadSound1)
 }
@@ -111,7 +112,8 @@ function shoot() {
     Arcane.pad?.calibratePointer(true)
     isCalibrateSequenceTopLeft = false
     isCalibrateSequenceBottomRight = true
-    if (isSoundEnabled.value) playSound(shootSound)
+    Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceBottomRight'))
+    if (isSoundEnabled.value) playSound(triggerSound)
     if (isVibrationEnabled.value) Arcane.pad?.vibrate(200)
     return
   }
@@ -119,7 +121,8 @@ function shoot() {
   if (isCalibrateSequenceBottomRight) {
     Arcane.pad?.calibratePointer(false)
     isCalibrateSequenceBottomRight = false
-    if (isSoundEnabled.value) playSound(shootSound)
+    Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceEnded'))
+    if (isSoundEnabled.value) playSound(triggerSound)
     if (isVibrationEnabled.value) Arcane.pad?.vibrate(200)
     return
   }
