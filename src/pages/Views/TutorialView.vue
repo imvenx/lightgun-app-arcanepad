@@ -23,7 +23,8 @@ const steps = {
   calibrate: { text: 'First press the <b style="color:cyan"> Calibrate </b> button on your gun pad to start calibration mode' },
   topLeft: { text: 'Now aim to the <b style="color:cyan"> top-left </b>  corner of your screen and press the shoot button' },
   bottomRight: { text: 'Great, now aim to the <b style="color:cyan"> bottom-right </b> corner of your screen and press the shoot button' },
-  enableWeapon: { text: 'Now press <b style="color:cyan"> Enable Weapon </b> to control the mouse. Check that it follows your aim properly, or try calibrating again' },
+  enableWeapon: { text: 'Now press <b style="color:cyan"> Enable Weapon </b> to control the mouse' },
+  check: { text: 'Check that it follows your aim properly, or try calibrating again' },
 };
 const currentStep = ref(steps[''])
 
@@ -34,6 +35,7 @@ onMounted(() => {
   Arcane.msg.on('CalibrateSequenceTopLeft', () => { changeStep(steps['topLeft']) })
   Arcane.msg.on('CalibrateSequenceBottomRight', () => { changeStep(steps['bottomRight']) })
   Arcane.msg.on('CalibrateSequenceEnded', () => { changeStep(steps['enableWeapon']) })
+  Arcane.msg.on('WeaponEnabled', () => { changeStep(steps['check']) })
 })
 
 function changeStep(newStep: TutorialStep) {

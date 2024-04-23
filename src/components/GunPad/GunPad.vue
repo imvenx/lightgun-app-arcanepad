@@ -10,9 +10,9 @@
       <div class="gunButton" @touchstart="startCalibrateSequence()">
         Calibrate
       </div>
-      <div class="gunButton" :style="`color:${isShootEnabled ? 'orange' : 'yellowgreen'}`"
-        @touchstart="toggleShootEnabled()">
-        {{ isShootEnabled ? 'Disable' : 'Enable' }} Weapon
+      <div class="gunButton" :style="`color:${isWeaponEnabled ? 'orange' : 'yellowgreen'}`"
+        @touchstart="toggleWeaponEnabled()">
+        {{ isWeaponEnabled ? 'Disable' : 'Enable' }} Weapon
       </div>
     </div>
     <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
@@ -67,7 +67,7 @@ import GunPadMenu from './GunPadMenu.vue';
 
 const count = ref(0)
 const isSoundEnabled = ref(true)
-const isShootEnabled = ref(false)
+const isWeaponEnabled = ref(false)
 const isVibrationEnabled = ref(true)
 const isMenuEnabled = ref(false)
 
@@ -127,7 +127,7 @@ function shoot() {
     return
   }
 
-  if (!isShootEnabled.value) {
+  if (!isWeaponEnabled.value) {
     if (isSoundEnabled.value) playSound(triggerSound)
     return
   }
@@ -143,7 +143,7 @@ function stopShoot() {
 }
 
 function reload() {
-  if (!isShootEnabled.value) {
+  if (!isWeaponEnabled.value) {
     if (isSoundEnabled.value) playSound(triggerSound)
     return
   }
@@ -155,8 +155,9 @@ function reload() {
   setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(100) }, 250);
 }
 
-function toggleShootEnabled() {
-  isShootEnabled.value = !isShootEnabled.value
+function toggleWeaponEnabled() {
+  isWeaponEnabled.value = !isWeaponEnabled.value
+  if (isWeaponEnabled.value) Arcane.msg.emitToViews(new ArcaneBaseEvent('WeaponEnabled'))
 
   // if (isShootEnabled.value) {
   //   Arcane.pad?.startGetPointer()
@@ -169,7 +170,7 @@ function toggleShootEnabled() {
 }
 
 function emitMoveMouse({ x, y }: GetPointerEvent) {
-  if (!isShootEnabled.value) return
+  if (!isWeaponEnabled.value) return
 
   if (isCalibrateSequenceTopLeft || isCalibrateSequenceBottomRight) return
   Arcane.msg.emit(new MouseMoveEvent(x, y), [])
