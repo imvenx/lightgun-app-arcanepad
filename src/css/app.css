@@ -7,3 +7,13 @@ body {
 html {
   cursor: crosshair;
 }
+
+@keyframes tiltAnim {
+  50% {
+    opacity: 0%;
+  }
+}
+
+.tiltAnim {
+  animation: tiltAnim 2s infinite linear;
+}

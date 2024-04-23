@@ -1,8 +1,12 @@
 <template>
-  <div style="height: 100vh; display: grid; width: 100%; text-align: center; ">
-    <div id="stepCont" style="transition: 1s all; margin: auto; padding: 5%;">
+  <div id="stepCont" style="height: 100vh; display: grid; width: 100%; text-align: center; user-select: none; ">
+    <div style="transition: 1s all; margin: auto; padding: 5%;">
       <h3 v-html="currentStep.text"></h3>
     </div>
+    <!-- <video style="margin: 1em auto; border-radius: 10px; box-shadow: 0 0 10px black; height: 60%;" autoplay muted loop>
+      <source src="/src/assets/videos/test.mp4" />
+    </video> -->
+    <Bullseye v-if="showFinishBullseye" text="" style="height: 20em;" />
   </div>
 </template>
 
@@ -10,8 +14,10 @@
 import { Arcane } from 'arcanepad-web-sdk';
 import { EnterAppEvent } from 'src/models/models';
 import { onMounted, onUnmounted, ref } from 'vue';
+import Bullseye from 'src/components/Bullseye.vue';
 
 const stepCont = ref<HTMLElement>()
+const showFinishBullseye = ref(false)
 
 type TutorialStep = {
   text: string
@@ -24,7 +30,7 @@ const steps = {
   topLeft: { text: 'Now aim to the <b style="color:cyan"> top-left </b>  corner of your screen and press the shoot button' },
   bottomRight: { text: 'Great, now aim to the <b style="color:cyan"> bottom-right </b> corner of your screen and press the shoot button' },
   enableWeapon: { text: 'Now press <b style="color:cyan"> Enable Weapon </b> to control the mouse' },
-  check: { text: 'Check that it follows your aim properly, or try calibrating again' },
+  check: { text: `Check that it follows your aim properly, or try calibrating again` },
 };
 const currentStep = ref(steps[''])
 
@@ -44,6 +50,7 @@ function changeStep(newStep: TutorialStep) {
   setTimeout(() => {
     currentStep.value = newStep
     stepCont.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, fill: 'forwards' });
+    showFinishBullseye.value = newStep === steps['check']
   }, 1000);
 
 }

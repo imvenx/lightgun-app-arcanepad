@@ -1,4 +1,5 @@
 import { ArcaneBaseEvent } from "arcanepad-web-sdk"
+import { LightgunApp } from "src/stores/AppsStore"
 import { SharedState } from "src/stores/SharedState"
 
 export type AMouseButton = 'Left' | 'Right' | 'Middle'
@@ -27,19 +28,17 @@ export class MouseButtonReleaseEvent extends MouseButtonActionBaseEvent {
   constructor(button: AMouseButton) { super('_ReleaseMouseButton', button) }
 }
 
-export type Apps = 'Tutorial' | 'HouseOfTheBread'
-
 export class SelectAppEvent extends ArcaneBaseEvent {
-  app: Apps
-  constructor(app: Apps) {
+  app: LightgunApp
+  constructor(app: LightgunApp) {
     super('SelectApp')
     this.app = app
   }
 }
 
 export class EnterAppEvent extends ArcaneBaseEvent {
-  app: Apps
-  constructor(app: Apps) {
+  app: LightgunApp
+  constructor(app: LightgunApp) {
     super('EnterApp')
     this.app = app
   }

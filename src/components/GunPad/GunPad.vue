@@ -28,7 +28,6 @@
 
     <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
       <div>
-        {{ count }}
       </div>
       <div class="gunButton" @touchstart="shoot()" @touchend="stopShoot()">
         Shoot
@@ -65,10 +64,11 @@ import reloadSound1 from 'assets/sounds/shotgun/shotgun_reload_1.wav'
 import { MouseMoveEvent } from 'src/models';
 import GunPadMenu from './GunPadMenu.vue';
 
-const count = ref(0)
-const isSoundEnabled = ref(true)
-const isWeaponEnabled = ref(false)
-const isVibrationEnabled = ref(true)
+const props = defineProps<{ soundEnabled: boolean, vibrationEnabled: boolean, weaponEnabled: boolean }>()
+
+const isSoundEnabled = ref(props.soundEnabled)
+const isWeaponEnabled = ref(props.weaponEnabled)
+const isVibrationEnabled = ref(props.vibrationEnabled)
 const isMenuEnabled = ref(false)
 
 let isCalibrateSequenceTopLeft = false

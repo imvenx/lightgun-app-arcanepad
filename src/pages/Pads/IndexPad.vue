@@ -26,7 +26,7 @@ onMounted(() => {
 
   Arcane.msg.on('UpdateSharedState', ({ newSharedState }: UpdateSharedStateEvent) => {
     if (newSharedState.inApp) {
-      router.push({ name: newSharedState.selectedApp + 'Pad' })
+      router.push({ name: newSharedState.selectedApp.name + 'Pad' })
     } else {
       router.push({ name: 'AppsPad' })
     }

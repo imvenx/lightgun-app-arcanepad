@@ -1,8 +1,8 @@
-import { Apps } from "src/models/models";
 import { ref } from "vue";
+import { LightgunApp, apps } from "./AppsStore";
 
 export class SharedState {
-  selectedApp: Apps = 'Tutorial'
+  selectedApp: LightgunApp = apps[0]
   inApp: boolean = false
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <GunPad />
+  <GunPad :soundEnabled="true" :vibrationEnabled="true" :weapon-enabled="false" />
 </template>
 
 <script setup lang="ts">
