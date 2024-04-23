@@ -6,7 +6,7 @@
       </div>
     </div>
     <div
-      style="align-items: center; display: grid; font-size: 2.5rem; text-align: left; display: grid; grid-template-columns: 47% 47%; gap: 6%;">
+      style="align-items: center; display: grid; font-size: 2rem; text-align: left; display: grid; grid-template-columns: 47% 47%; gap: 6%;">
       {{ selectedApp.description }}
       <video v-if="selectedApp.video"
         style="margin: 1em auto; border-radius: 10px; box-shadow: 0 0 10px black; height: 30vh;" autoplay loop

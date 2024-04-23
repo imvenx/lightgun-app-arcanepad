@@ -49,7 +49,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script setup lang="ts">
@@ -78,6 +77,7 @@ onMounted(() => {
   Arcane.pad?.setScreenOrientationLandscape()
 
   Arcane.pad?.startGetPointer()
+
   Arcane.pad?.onGetPointer((e: GetPointerEvent) => {
     emitMoveMouse(e)
   })
@@ -90,6 +90,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   Arcane.pad?.stopGetPointer()
+  Arcane.msg.off('')
 })
 
 function changeBackgroundColorOnPress(event: any) {
