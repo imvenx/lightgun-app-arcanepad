@@ -1,7 +1,7 @@
 <template>
   <div
     style="display:grid; grid-template-rows: 33% 33% 33%; gap: 2px; height: 100vh; user-select: none;
-  background-image: url('/src/assets/images/gun.webp'); background-position: 60% 25%; background-size: 130%; background-repeat: no-repeat;">
+  background-image: url('/assets/images/gun.webp'); background-position: 60% 25%; background-size: 130%; background-repeat: no-repeat;">
 
     <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
       <div class="gunButton" @touchend="openMenu()">
@@ -55,11 +55,11 @@
 import { Arcane, ArcaneBaseEvent, GetPointerEvent } from 'arcanepad-web-sdk';
 import { MouseButtonHoldEvent, MouseButtonPressEvent, MouseButtonReleaseEvent } from 'src/models/models';
 import { onMounted, onUnmounted, onUpdated, ref } from 'vue';
-import shootSound from 'assets/sounds/shotgun/shotgun_fire.mp3'
-import triggerSound from 'assets/sounds/shotgun/trigger.wav'
-import reloadSound from 'assets/sounds/shotgun/shotgun_reload.mp3'
+import shootSound from '/assets/sounds/shotgun/shotgun_fire.mp3'
+import triggerSound from '/assets/sounds/shotgun/trigger.wav'
+import reloadSound from '/assets/sounds/shotgun/shotgun_reload.mp3'
 import { playSound } from 'src/utils';
-import reloadSound1 from 'assets/sounds/shotgun/shotgun_reload_1.wav'
+import reloadSound1 from '/assets/sounds/shotgun/shotgun_reload_1.wav'
 import { MouseMoveEvent } from 'src/models';
 import GunPadMenu from './GunPadMenu.vue';
 
@@ -115,7 +115,7 @@ function shoot() {
     isCalibrateSequenceBottomRight = true
     Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceBottomRight'))
     if (isSoundEnabled.value) playSound(triggerSound)
-    if (isVibrationEnabled.value) Arcane.pad?.vibrate(200)
+    if (isVibrationEnabled.value) Arcane.pad?.vibrate(100)
     return
   }
 
@@ -124,7 +124,7 @@ function shoot() {
     isCalibrateSequenceBottomRight = false
     Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceEnded'))
     if (isSoundEnabled.value) playSound(triggerSound)
-    if (isVibrationEnabled.value) Arcane.pad?.vibrate(200)
+    if (isVibrationEnabled.value) Arcane.pad?.vibrate(100)
     return
   }
 
@@ -136,7 +136,7 @@ function shoot() {
   Arcane.msg.emit(new MouseButtonHoldEvent('Left'), [])
 
   if (isSoundEnabled.value) playSound(shootSound)
-  if (isVibrationEnabled.value) Arcane.pad?.vibrate(200)
+  if (isVibrationEnabled.value) Arcane.pad?.vibrate(100)
 }
 
 function stopShoot() {
@@ -152,8 +152,8 @@ function reload() {
   if (isSoundEnabled.value) playSound(reloadSound)
   Arcane.msg.emit(new MouseButtonPressEvent('Right'), [])
 
-  setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(100) }, 50);
-  setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(100) }, 250);
+  setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(50) }, 50);
+  setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(50) }, 250);
 }
 
 function toggleWeaponEnabled() {

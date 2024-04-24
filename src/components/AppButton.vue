@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { Arcane } from 'arcanepad-web-sdk';
 import { EnterAppEvent, SelectAppEvent } from 'src/models/models';
-import reloadSound1 from 'assets/sounds/shotgun/shotgun_reload_1.wav'
+import reloadSound1 from '/assets/sounds/shotgun/shotgun_reload_1.wav'
 import { playSound } from 'src/utils';
 import { LightgunApp } from 'src/stores/AppsStore';
 

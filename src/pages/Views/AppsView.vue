@@ -11,7 +11,7 @@
       <video v-if="selectedApp.video"
         style="margin: 1em auto; border-radius: 10px; box-shadow: 0 0 10px black; height: 30vh;" autoplay loop
         volume=".3">
-        <source :src="'/src/assets/videos/' + selectedApp.video" />
+        <source :src="'/assets/videos/' + selectedApp.video" />
       </video>
     </div>
     <div style="align-items: center; display: grid;">
@@ -38,7 +38,7 @@ import Player from 'src/components/Player.vue';
 import { MouseButtonHoldEvent, MouseButtonPressEvent, SelectAppEvent, UpdateSharedStateEvent } from 'src/models/models';
 import { Ref, onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import reloadSound2 from 'assets/sounds/shotgun/shotgun_reload_2.wav'
+import reloadSound2 from '/assets/sounds/shotgun/shotgun_reload_2.wav'
 import { playSound, updateSharedState } from 'src/utils';
 import { LightgunApp } from 'src/stores/AppsStore';
 
