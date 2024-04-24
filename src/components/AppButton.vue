@@ -1,7 +1,6 @@
 <template>
-
   <div @click="selectApp(app)"
-    style="user-select: none; height: 5em; width: 100%; transition: .5 all; box-sizing: border-box; color: black; border-radius: 20px; background-color: gray; margin: 5% 0; padding: 1em; display: grid; grid-template-columns: 76% 20%; gap: 2%; align-items: center;"
+    style="user-select: none; height: 5em; width: 100%; transition: .5 all; box-sizing: border-box; color: black; border-radius: 20px; border: 1px solid white; background-color: transparent; color: white; margin: 5% 0; padding: 1em; display: grid; grid-template-columns: 76% 20%; gap: 2%; align-items: center;"
     :style="isSelected ? 'color: white; background-color: rgb(200,70,70); box-shadow: 0 0 10px white' : ''"
     class="text-h6">
     <div style="font-weight: 800;">
