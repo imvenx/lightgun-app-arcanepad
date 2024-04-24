@@ -1,7 +1,5 @@
 <template>
-  <div
-    style="display:grid; grid-template-rows: 33% 33% 33%; gap: 2px; height: 100vh; user-select: none;
-  background-image: url('/assets/images/gun.webp'); background-position: 60% 25%; background-size: 130%; background-repeat: no-repeat;">
+  <div style="display:grid; grid-template-rows: 33% 33% 33%; gap: 2px; height: 100vh; user-select: none;">
 
     <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
       <div class="gunButton" @touchend="openMenu()">
@@ -48,6 +46,7 @@
       <q-btn size="xl" outline @touchend="exitApp()" color="red">Exit App</q-btn>
     </div>
 
+    <GunAnim />
   </div>
 </template>
 
@@ -62,6 +61,7 @@ import { playSound } from 'src/utils';
 import reloadSound1 from '/assets/sounds/shotgun/shotgun_reload_1.wav'
 import { MouseMoveEvent } from 'src/models';
 import GunPadMenu from './GunPadMenu.vue';
+import GunAnim from '../GunAnim.vue';
 
 const props = defineProps<{ soundEnabled: boolean, vibrationEnabled: boolean, weaponEnabled: boolean }>()
 
@@ -137,6 +137,8 @@ function shoot() {
 
   if (isSoundEnabled.value) playSound(shootSound)
   if (isVibrationEnabled.value) Arcane.pad?.vibrate(100)
+
+  window.dispatchEvent(new CustomEvent('GunShoot'))
 }
 
 function stopShoot() {
@@ -154,6 +156,8 @@ function reload() {
 
   setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(50) }, 50);
   setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(50) }, 250);
+
+  window.dispatchEvent(new CustomEvent('GunReload'))
 }
 
 function toggleWeaponEnabled() {
