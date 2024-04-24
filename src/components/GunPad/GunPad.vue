@@ -213,5 +213,6 @@ function exitApp() {
   font-weight: 600;
   background-color: rgba(0, 0, 0, .5);
   border: 1px solid rgba(255, 255, 255, .5);
+  box-shadow: 0 0 10px black;
 }
 </style>

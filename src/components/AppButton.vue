@@ -1,8 +1,11 @@
 <template>
   <div @click="selectApp(app)"
-    style="user-select: none; height: 5em; width: 100%; transition: .5 all; box-sizing: border-box; color: black; border-radius: 20px; border: 1px solid white; background-color: transparent; color: white; margin: 5% 0; padding: 1em; display: grid; grid-template-columns: 76% 20%; gap: 2%; align-items: center;"
-    :style="isSelected ? 'color: white; background-color: rgb(200,70,70); box-shadow: 0 0 10px white' : ''"
-    class="text-h6">
+    style="user-select: none; height: 5em; position: relative; width: 100%; transition: .5 all; box-sizing: border-box; color: black; border-radius: 20px; border: 1px solid white; background-color: transparent; color: white; margin: 5% 0; padding: 1em; display: grid; grid-template-columns: 76% 20%; gap: 2%; align-items: center;"
+    :style="isSelected ? 'color: white; background-color: rgb(200,70,70); border:none' : ''" class="text-h6">
+
+    <div style="position: absolute; box-shadow: inset 0 0 10px black; height: 100%;width: 100%; border-radius: 20px;">
+    </div>
+
     <div style="font-weight: 800;">
       {{ app.title }}
     </div>
