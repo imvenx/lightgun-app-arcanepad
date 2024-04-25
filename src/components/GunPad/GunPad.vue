@@ -77,7 +77,6 @@ onMounted(() => {
   Arcane.pad?.setScreenOrientationLandscape()
 
   Arcane.pad?.startGetPointer()
-
   Arcane.pad?.onGetPointer((e: GetPointerEvent) => {
     emitMoveMouse(e)
   })
@@ -89,8 +88,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  Arcane.pad?.stopGetPointer()
-  Arcane.msg.off('')
+  Arcane.pad?.stopGetPointer(true)
 })
 
 function changeBackgroundColorOnPress(event: any) {
