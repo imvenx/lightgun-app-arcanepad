@@ -13,15 +13,17 @@
         {{ isWeaponEnabled ? 'Disable' : 'Enable' }} Weapon
       </div>
     </div>
-    <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
+    <div style="display: grid; gap: 2px; grid-template-columns: 25% 40% 35%">
       <div>
       </div>
-      <div class="gunButton">
-        Extra 1
+      <div class="gunButton" v-if="gunButtons.extraButton" @touchstart="onExtraButtonPressed()">
+        {{ gunButtons.extraButton.text ? gunButtons.extraButton.text : 'Extra' }}
       </div>
-      <div class="gunButton">
-        Extra 2
+      <div v-else></div>
+      <div class="gunButton" v-if="gunButtons.escButton" @touchstart="onEscButtonPressed()">
+        {{ gunButtons.escButton.text ? gunButtons.escButton.text : 'Esc' }}
       </div>
+      <div v-else></div>
     </div>
 
     <div style="display: grid; gap: 2px; grid-template-columns: 30% 40% 30%;">
@@ -30,8 +32,8 @@
       <div class="gunButton" @touchstart="shoot()" @touchend="stopShoot()">
         Shoot
       </div>
-      <div class="gunButton" @touchstart="reload()">
-        Reload
+      <div class="gunButton" @touchstart="reload()" v-if="gunButtons.reloadButton">
+        {{ gunButtons.reloadButton.text ? gunButtons.reloadButton.text : 'Reload' }}
       </div>
     </div>
 
@@ -52,7 +54,7 @@
 
 <script setup lang="ts">
 import { Arcane, ArcaneBaseEvent, GetPointerEvent } from 'arcanepad-web-sdk';
-import { MouseButtonHoldEvent, MouseButtonPressEvent, MouseButtonReleaseEvent } from 'src/models/models';
+import { GunButtons, MouseButtonHoldEvent, MouseButtonPressEvent, MouseButtonReleaseEvent } from 'src/models/models';
 import { onMounted, onUnmounted, onUpdated, ref } from 'vue';
 import shootSound from '/assets/sounds/shotgun/shotgun_fire.mp3'
 import triggerSound from '/assets/sounds/shotgun/trigger.wav'
@@ -63,7 +65,7 @@ import { MouseMoveEvent } from 'src/models';
 import GunPadMenu from './GunPadMenu.vue';
 import GunAnim from '../GunAnim.vue';
 
-const props = defineProps<{ soundEnabled: boolean, vibrationEnabled: boolean, weaponEnabled: boolean }>()
+const props = defineProps<{ soundEnabled: boolean, vibrationEnabled: boolean, weaponEnabled: boolean, gunButtons: GunButtons }>()
 
 const emit = defineEmits<{
   // shoot: [],
@@ -111,7 +113,25 @@ function startCalibrateSequence() {
   // emit('calibrateSequenceTopLeft')
   Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceTopLeft'))
   isCalibrateSequenceTopLeft = true
-  playSound(reloadSound1)
+  if (isSoundEnabled.value) playSound(reloadSound1)
+  if (isVibrationEnabled.value) Arcane.pad?.vibrate(50)
+}
+
+function onEscButtonPressed() {
+  props.gunButtons?.escButton?.action ? props.gunButtons.escButton.action() : ''
+  if (isVibrationEnabled.value) Arcane.pad?.vibrate(50)
+  if (isSoundEnabled.value) playSound(reloadSound1)
+}
+
+function onExtraButtonPressed() {
+  if (!isWeaponEnabled.value) {
+    if (isSoundEnabled.value) playSound(triggerSound)
+    return
+  }
+
+  props.gunButtons?.extraButton?.action ? props.gunButtons.extraButton.action() : ''
+  if (isVibrationEnabled.value) Arcane.pad?.vibrate(50)
+  if (isSoundEnabled.value) playSound(reloadSound1)
 }
 
 function shoot() {
@@ -161,7 +181,8 @@ function reload() {
   }
 
   if (isSoundEnabled.value) playSound(reloadSound)
-  Arcane.msg.emit(new MouseButtonPressEvent('Right'), [])
+  if (props.gunButtons.reloadButton?.action) props.gunButtons.reloadButton.action()
+  // Arcane.msg.emit(new MouseButtonPressEvent('Right'), [])
 
   setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(50) }, 50);
   setTimeout(() => { if (isVibrationEnabled.value) Arcane.pad?.vibrate(50) }, 250);

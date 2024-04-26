@@ -1,6 +1,7 @@
-import { ArcaneBaseEvent } from "arcanepad-web-sdk"
+import { Arcane, ArcaneBaseEvent } from "arcanepad-web-sdk"
 import { LightgunApp } from "src/stores/AppsStore"
 import { SharedState } from "src/stores/SharedState"
+import { PressKeyEvent } from "./PanzerKaiserTypes"
 
 export type AMouseButton = 'Left' | 'Right' | 'Middle'
 
@@ -52,3 +53,50 @@ export class UpdateSharedStateEvent extends ArcaneBaseEvent {
   }
 }
 
+export class GunButtons {
+  reloadButton?: GunButton
+  escButton?: EscButton
+  extraButton?: GunButton
+}
+
+export class GunButton {
+  constructor({ action, text }: GunButton = { action: () => { }, text: '' }) {
+    this.action = action
+    this.text = text
+  }
+  action?: Function
+  text?: string
+}
+
+export class EscButton extends GunButton {
+  constructor({ action, text }: GunButton = {
+    action: () => {
+      Arcane.msg.emit(new PressKeyEvent('Esc'), [])
+    },
+    text: 'Esc'
+  }) {
+    super({ action, text })
+  }
+}
+
+export class ExtraButton extends GunButton {
+  constructor({ action, text }: GunButton = {
+    action: () => {
+      Arcane.msg.emit(new MouseButtonPressEvent('Middle'), [])
+    },
+    text: 'Extra'
+  }) {
+    super({ action, text })
+  }
+}
+
+export class ReloadButton extends GunButton {
+  constructor({ action, text }: GunButton = {
+    action: () => {
+      Arcane.msg.emit(new MouseButtonPressEvent('Right'), [])
+    },
+    text: 'Reload'
+  }) {
+    super({ action, text })
+  }
+}
