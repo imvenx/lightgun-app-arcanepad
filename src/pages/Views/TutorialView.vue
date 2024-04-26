@@ -7,17 +7,22 @@
       <source src="/src/assets/videos/test.mp4" />
     </video> -->
     <Bullseye v-if="showFinishBullseye" text="" style="height: 20em;" />
+    <q-icon v-if="showArrowTopLeft" class="arrowTiltUp" name="arrow_upward"
+      style="position: absolute; top: 0; left: 0em; transform: rotate(-45deg); font-size: 6rem;" color="cyan" />
+    <q-icon v-if="showArrowBottomRight" class="arrowTiltDown" name="arrow_downward"
+      style="position: absolute; bottom: 0em; right: 0em; transform: rotate(-45deg); font-size: 6rem;" color="cyan" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Arcane } from 'arcanepad-web-sdk';
-import { EnterAppEvent } from 'src/models/models';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Bullseye from 'src/components/Bullseye.vue';
 
 const stepCont = ref<HTMLElement>()
 const showFinishBullseye = ref(false)
+const showArrowTopLeft = ref(false)
+const showArrowBottomRight = ref(false)
 
 type TutorialStep = {
   text: string
@@ -51,6 +56,8 @@ function changeStep(newStep: TutorialStep) {
     currentStep.value = newStep
     stepCont.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, fill: 'forwards' });
     showFinishBullseye.value = newStep === steps['check']
+    showArrowTopLeft.value = newStep === steps['topLeft']
+    showArrowBottomRight.value = newStep === steps['bottomRight']
   }, 1000);
 
 }
@@ -65,3 +72,25 @@ function changeStep(newStep: TutorialStep) {
 //   Arcane.msg.off('EnterApp')
 // })
 </script>
+
+<style scoped>
+.arrowTiltUp {
+  animation: 1s arrowTiltUp infinite;
+}
+
+.arrowTiltDown {
+  animation: 1s arrowTiltDown infinite;
+}
+
+@keyframes arrowTiltUp {
+  50% {
+    transform: rotate(-45deg) translate(0px, 35px);
+  }
+}
+
+@keyframes arrowTiltDown {
+  50% {
+    transform: rotate(-45deg) translate(0px, -35px);
+  }
+}
+</style>
