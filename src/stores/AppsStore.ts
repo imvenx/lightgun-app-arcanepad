@@ -8,15 +8,20 @@ export const apps: LightgunApp[] = [
     description: 'Learn how to calibrate your light-gun',
   },
   {
-    name: 'HouseOfTheBread',
-    title: 'House of the Bread',
-    description: 'Support the developer by visiting https://theprinceofmars.itch.io/the-house-of-the-bread. This game is independently developed and is not affiliated with Arcanepad.',
-    video: 'HouseOfTheBread.mp4'
+    name: 'MetroCop',
+    title: 'Metro Cop',
+    description: 'Support the developer by visiting https://helpcomputer.itch.io/metro-cop. This game is independently developed and is not affiliated with Arcanepad.',
   },
   {
     name: 'RushdownRivalsReloaded',
     title: 'Rushdown Rivals Reloaded',
     description: 'Support the developer by visiting https://spagato.itch.io/rushdown-reloaded. This game is independently developed and is not affiliated with Arcanepad.',
     video: 'Rushdown.mp4'
+  },
+  {
+    name: 'HouseOfTheBread',
+    title: 'House of the Bread',
+    description: 'Support the developer by visiting https://theprinceofmars.itch.io/the-house-of-the-bread. This game is independently developed and is not affiliated with Arcanepad.',
+    video: 'HouseOfTheBread.mp4'
   },
 ]

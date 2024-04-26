@@ -38,14 +38,19 @@
     </div>
 
     <div v-if="isMenuEnabled"
-      style="position: absolute; background-color: black; width: 100%; height: 100%; padding: 5%; display: grid; gap: 5%;">
-      <q-btn size="xl" outline @touchstart="closeMenu()">Back to Gun</q-btn>
-      <q-btn size="xl" outline @click="toggleSound()">{{ isSoundEnabled ? `Sound Enabled` : `Sound
+      style="position: absolute; background-color: black; overflow: auto; width: 100%; height: 100%; padding: 5%; display: grid; grid-template-columns: 50% 50%; gap: 1em;">
+      <q-btn size="xl" outline @touchstart="closeMenu()" icon="arrow_back" color="blue">&nbsp; Back to Gun</q-btn>
+      <q-btn size="xl" outline @click="toggleSound()" icon="volume_up">&nbsp;{{ isSoundEnabled ? `Sound Enabled` :
+        `Sound
         Disabled` }}</q-btn>
-      <q-btn size="xl" outline @click="toggleVibration()">{{ isVibrationEnabled ? `Vibration
+      <q-btn size="xl" outline @click="toggleVibration()" icon="vibration">&nbsp;{{ isVibrationEnabled ?
+        `Vibration
         Enabled` : `Vibration
         Disabled` }}</q-btn>
-      <q-btn size="xl" outline @touchend="exitApp()" color="red">Exit App</q-btn>
+      <!-- <q-btn size="xl" outline @click="toggleHand()" icon="back_hand">&nbsp;Use {{ isLeftHand ? `Left Hand` : `Right
+        Hand`
+        }}</q-btn> -->
+      <q-btn size="xl" outline @touchend="exitApp()" color="red" icon="close">&nbsp;Exit App</q-btn>
     </div>
 
     <GunAnim />
@@ -78,6 +83,7 @@ const emit = defineEmits<{
 const isSoundEnabled = ref(props.soundEnabled)
 const isWeaponEnabled = ref(props.weaponEnabled)
 const isVibrationEnabled = ref(props.vibrationEnabled)
+const isLeftHand = ref(props.vibrationEnabled)
 const isMenuEnabled = ref(false)
 
 let isCalibrateSequenceTopLeft = false
@@ -229,6 +235,11 @@ function toggleSound() {
 function toggleVibration() {
   if (isSoundEnabled.value) playSound(reloadSound1)
   isVibrationEnabled.value = !isVibrationEnabled.value
+}
+
+function toggleHand() {
+  if (isSoundEnabled.value) playSound(reloadSound1)
+  isLeftHand.value = !isLeftHand.value
 }
 
 function exitApp() {
