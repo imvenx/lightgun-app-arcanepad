@@ -30,7 +30,7 @@ onMounted(() => {
   window.addEventListener('GunShoot', () => {
 
     gunEl.animate({ transform: 'translate(-5%)', filter: 'brightness(1.5) blur(10px)' }, 100)
-    bullet.animate([{ opacity: '1', filter: 'brightness(1.5) blur(10px)' }, { backgroundColor: 'gray', top: '0', right: '2%', opacity: '1' }], 100)
+    bullet.animate([{ opacity: '1', filter: 'brightness(1.5) blur(10px)' }, { backgroundColor: 'gray', top: '0', right: '-20%', opacity: '0' }], 100)
   })
 
   window.addEventListener('GunReload', () => {

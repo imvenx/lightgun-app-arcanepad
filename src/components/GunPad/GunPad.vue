@@ -65,6 +65,14 @@ import GunAnim from '../GunAnim.vue';
 
 const props = defineProps<{ soundEnabled: boolean, vibrationEnabled: boolean, weaponEnabled: boolean }>()
 
+const emit = defineEmits<{
+  // shoot: [],
+  // reload: [],
+  // calibrateSequenceTopLeft: [],
+  // calibrateSequenceBottomRight: [],
+  // calibrateSequenceEnd: [],
+}>()
+
 const isSoundEnabled = ref(props.soundEnabled)
 const isWeaponEnabled = ref(props.weaponEnabled)
 const isVibrationEnabled = ref(props.vibrationEnabled)
@@ -100,6 +108,7 @@ function resetBackgroundColorOnRelease(event: any) {
 }
 
 function startCalibrateSequence() {
+  // emit('calibrateSequenceTopLeft')
   Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceTopLeft'))
   isCalibrateSequenceTopLeft = true
   playSound(reloadSound1)
@@ -111,6 +120,7 @@ function shoot() {
     Arcane.pad?.calibratePointer(true)
     isCalibrateSequenceTopLeft = false
     isCalibrateSequenceBottomRight = true
+    // emit('calibrateSequenceBottomRight')
     Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceBottomRight'))
     if (isSoundEnabled.value) playSound(triggerSound)
     if (isVibrationEnabled.value) Arcane.pad?.vibrate(100)
@@ -120,6 +130,7 @@ function shoot() {
   if (isCalibrateSequenceBottomRight) {
     Arcane.pad?.calibratePointer(false)
     isCalibrateSequenceBottomRight = false
+    // emit('calibrateSequenceEnd')
     Arcane.msg.emitToViews(new ArcaneBaseEvent('CalibrateSequenceEnded'))
     if (isSoundEnabled.value) playSound(triggerSound)
     if (isVibrationEnabled.value) Arcane.pad?.vibrate(100)
