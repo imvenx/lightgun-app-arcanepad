@@ -1,5 +1,5 @@
 <template>
-  <div id="stepCont" style="height: 100vh; display: grid; width: 100%; text-align: center; user-select: none; ">
+  <div id="stepCont" style="height: 100vh; display: grid; width: 100%; text-align: left; user-select: none; ">
     <div style="transition: 1s all; margin: auto; padding: 5%;">
       <h3 v-html="currentStep.text"></h3>
     </div>
@@ -35,7 +35,7 @@ const steps = {
   topLeft: { text: 'Now aim to the <b style="color:cyan"> top-left </b>  corner of your screen and press the shoot button' },
   bottomRight: { text: 'Great, now aim to the <b style="color:cyan"> bottom-right </b> corner of your screen and press the shoot button' },
   enableWeapon: { text: 'Now press <b style="color:cyan"> Enable Weapon </b> to control the mouse' },
-  check: { text: `Check that it follows your aim properly, or try calibrating again` },
+  check: { text: `Check that it follows your aim properly, or try calibrating again. <br /> Press <b style="color:cyan"> Menu </b> to exit` },
 };
 const currentStep = ref(steps[''])
 

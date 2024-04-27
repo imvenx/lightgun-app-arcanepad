@@ -6,11 +6,13 @@ export const apps: LightgunApp[] = [
     name: 'Tutorial',
     title: 'Tutorial',
     description: 'Learn how to calibrate your light-gun',
+    video: 'Tutorial.mp4'
   },
   {
     name: 'MetroCop',
     title: 'Metro Cop',
     description: 'This game is independently developed and is not affiliated with Arcanepad. Support the developer by visiting helpcomputer.itch.io/metro-cop.',
+    video: 'MetroCop.mp4'
   },
   {
     name: 'RushdownRivalsReloaded',
