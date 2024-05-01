@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import { Arcane } from 'arcanepad-web-sdk';
 import GunPad from 'src/components/GunPad/GunPad.vue';
-import { PressKeyEvent } from 'src/models/PanzerKaiserTypes';
 import { EscButton, GunButton, GunButtons, MouseButtonPressEvent } from 'src/models/models';
 
 const gunButtons: GunButtons = {

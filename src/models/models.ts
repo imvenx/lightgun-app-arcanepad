@@ -1,7 +1,7 @@
 import { Arcane, ArcaneBaseEvent } from "arcanepad-web-sdk"
 import { LightgunApp } from "src/stores/AppsStore"
 import { SharedState } from "src/stores/SharedState"
-import { PressKeyEvent } from "./PanzerKaiserTypes"
+import { Key, KeyboardTypeEvent } from "./KeyboardEvents"
 
 export type AMouseButton = 'Left' | 'Right' | 'Middle'
 
@@ -71,7 +71,7 @@ export class GunButton {
 export class EscButton extends GunButton {
   constructor({ action, text }: GunButton = {
     action: () => {
-      Arcane.msg.emit(new PressKeyEvent('Esc'), [])
+      Arcane.msg.emit(new KeyboardTypeEvent(Key.Escape), [])
     },
     text: 'Esc'
   }) {
