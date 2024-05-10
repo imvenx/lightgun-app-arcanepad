@@ -9,16 +9,21 @@ export const apps: LightgunApp[] = [
     video: 'Tutorial.mp4'
   },
   {
-    name: 'MetroCop',
-    title: 'Metro Cop',
-    description: 'This game is independently developed and is not affiliated with Arcanepad. Support the developer by visiting helpcomputer.itch.io/metro-cop.',
-    video: 'MetroCop.mp4'
-  },
-  {
     name: 'RushdownRivalsReloaded',
     title: 'Rushdown Rivals Reloaded',
     description: 'This game is independently developed and is not affiliated with Arcanepad. Support the developer by visiting spagato.itch.io/rushdown-reloaded.',
     video: 'Rushdown.mp4'
+  },
+  {
+    name: 'EmulatorMode',
+    title: 'Free Emulation Mode',
+    description: 'Use with RetroArch and other game emulators, by controlling your mouse with the gun pad',
+  },
+  {
+    name: 'MetroCop',
+    title: 'Metro Cop',
+    description: 'This game is independently developed and is not affiliated with Arcanepad. Support the developer by visiting helpcomputer.itch.io/metro-cop.',
+    video: 'MetroCop.mp4'
   },
   {
     name: 'HouseOfTheBread',

@@ -16,7 +16,8 @@
     <div style="display: grid; gap: 2px; grid-template-columns: 25% 40% 35%">
       <div>
       </div>
-      <div class="gunButton" v-if="gunButtons.extraButton" @touchstart="onExtraButtonPressed()">
+      <div class="gunButton" v-if="gunButtons.extraButton" @touchstart="onExtraButtonPressed()"
+        @touchend="emit('releaseExtraButton')">
         {{ gunButtons.extraButton.text ? gunButtons.extraButton.text : 'Extra' }}
       </div>
       <div v-else></div>
@@ -78,6 +79,7 @@ const emit = defineEmits<{
   // calibrateSequenceTopLeft: [],
   // calibrateSequenceBottomRight: [],
   // calibrateSequenceEnd: [],
+  releaseExtraButton: [],
 }>()
 
 const isSoundEnabled = ref(props.soundEnabled)

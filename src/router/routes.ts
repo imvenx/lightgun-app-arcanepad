@@ -12,6 +12,7 @@ const routes: RouteRecordRaw[] = [
           { path: '/HouseOfTheBreadView', name: 'HouseOfTheBreadView', component: () => import('pages/Views/HouseOfTheBreadView.vue') },
           { path: '/RushdownRivalsReloadedView', name: 'RushdownRivalsReloadedView', component: () => import('pages/Views/RushdownRivalsReloadedView.vue') },
           { path: '/MetroCopView', name: 'MetroCopView', component: () => import('pages/Views/MetroCopView.vue') },
+          { path: '/EmulatorModeView', name: 'EmulatorModeView', component: () => import('pages/Views/EmulatorModeView.vue') },
         ]
       },
       {
@@ -21,6 +22,7 @@ const routes: RouteRecordRaw[] = [
           { path: '/HouseOfTheBreadPad', name: 'HouseOfTheBreadPad', component: () => import('pages/Pads/HouseOfTheBreadPad.vue') },
           { path: '/RushdownRivalsReloadedPad', name: 'RushdownRivalsReloadedPad', component: () => import('pages/Pads/RushdownRivalsReloadedPad.vue') },
           { path: '/MetroCopPad', name: 'MetroCopPad', component: () => import('pages/Pads/MetroCopPad.vue') },
+          { path: '/EmulatorModePad', name: 'EmulatorModePad', component: () => import('pages/Pads/EmulatorModePad.vue') },
         ]
       },
     ],
