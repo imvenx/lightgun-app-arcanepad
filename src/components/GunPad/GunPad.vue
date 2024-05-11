@@ -33,7 +33,8 @@
       <div class="gunButton" @touchstart="shoot()" @touchend="stopShoot()">
         Shoot
       </div>
-      <div class="gunButton" @touchstart="reload()" v-if="gunButtons.reloadButton">
+      <div class="gunButton" v-if="gunButtons.reloadButton" @touchstart="reload()"
+        @touchend="emit('releaseReloadButton')">
         {{ gunButtons.reloadButton.text ? gunButtons.reloadButton.text : 'Reload' }}
       </div>
     </div>
@@ -80,6 +81,7 @@ const emit = defineEmits<{
   // calibrateSequenceBottomRight: [],
   // calibrateSequenceEnd: [],
   releaseExtraButton: [],
+  releaseReloadButton: [],
 }>()
 
 const isSoundEnabled = ref(props.soundEnabled)
