@@ -1,31 +1,21 @@
 <template>
-  <GunPad :gun-buttons="gunButtons" :soundEnabled="false" :vibrationEnabled="true" :weapon-enabled="false"
-    @release-extra-button="onReleaseExtraButton()" @release-reload-button="onReleaseReloadButton()" />
+  <GunPad :gun-buttons="gunButtons" :soundEnabled="false" :vibrationEnabled="true" :weapon-enabled="false" />
 </template>
 
 <script lang="ts" setup>
-import { Arcane } from 'arcanepad-web-sdk';
 import GunPad from 'src/components/GunPad/GunPad.vue';
-import { EscButton, ExtraButton, GunButtons, MouseButtonHoldEvent, MouseButtonReleaseEvent, ReloadButton } from 'src/models/models';
+import { EscButton, ExtraButton, GunButtons, ReloadButton } from 'src/models/models';
+
+const extraButton = new ExtraButton()
+extraButton.text = 'Middle Click'
+
+const reloadButton = new ReloadButton()
+reloadButton.text = 'Right Click'
 
 const gunButtons: GunButtons = {
-  reloadButton: new ReloadButton({
-    action: () => Arcane.msg.emit(new MouseButtonHoldEvent('Right'), []),
-    text: 'Right Click',
-  }),
+  reloadButton: reloadButton,
   escButton: new EscButton(),
-  extraButton: new ExtraButton({
-    action: () => Arcane.msg.emit(new MouseButtonHoldEvent('Middle'), []),
-    text: 'Middle Click'
-  })
-}
-
-function onReleaseExtraButton() {
-  Arcane.msg.emit(new MouseButtonReleaseEvent('Middle'), [])
-}
-
-function onReleaseReloadButton() {
-  Arcane.msg.emit(new MouseButtonReleaseEvent('Right'), [])
+  extraButton: extraButton,
 }
 
 </script>

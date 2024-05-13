@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import GunPad from 'src/components/GunPad/GunPad.vue';
-import { EscButton, ExtraButton, GunButton, GunButtons, ReloadButton } from 'src/models/models';
+import { EscButton, ExtraButton, GunButtons, ReloadButton } from 'src/models/models';
 
 const gunButtons: GunButtons = {
   reloadButton: new ReloadButton(),

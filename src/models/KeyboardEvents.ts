@@ -1,11 +1,27 @@
-import { ArcaneBaseEvent } from "arcanepad-web-sdk"
+import { ArcaneBaseEvent, AEventName } from "arcanepad-web-sdk"
 
 export class KeyboardTypeEvent extends ArcaneBaseEvent {
   constructor(...stringOrKey: StringOrKey) {
-    super('_KeyboardType')
+    super("_KeyboardType")
     this.stringOrKey = stringOrKey
   }
   stringOrKey: StringOrKey
+}
+
+export class KeyboardPressKeyEvent extends ArcaneBaseEvent {
+  constructor(...keys: Key[]) {
+    super("_KeyboardPressKey")
+    this.keys = keys
+  }
+  keys: Key[]
+}
+
+export class KeyboardReleaseKeyEvent extends ArcaneBaseEvent {
+  constructor(...keys: Key[]) {
+    super("_KeyboardReleaseKey")
+    this.keys = keys
+  }
+  keys: Key[]
 }
 
 export type StringOrKey = string[] | Key[];

@@ -5,23 +5,18 @@
 <script lang="ts" setup>
 import { Arcane } from 'arcanepad-web-sdk';
 import GunPad from 'src/components/GunPad/GunPad.vue';
-import { Key, KeyboardTypeEvent } from 'src/models/KeyboardEvents';
-import { EscButton, ExtraButton, GunButtons, MouseButtonHoldEvent, MouseButtonPressEvent, MouseButtonReleaseEvent, ReloadButton } from 'src/models/models';
+import { Key, KeyboardPressKeyEvent, KeyboardReleaseKeyEvent } from 'src/models/KeyboardEvents';
+import { EscButton, ExtraButton, GunButtons, MouseButtonHoldEvent, MouseButtonReleaseEvent, ReloadButton } from 'src/models/models';
 
 const gunButtons: GunButtons = {
   reloadButton: new ReloadButton({
-    action: () => {
-      Arcane.msg.emit(new KeyboardTypeEvent(Key.Space), [])
-    }
+    onTouchStart: () => Arcane.msg.emit(new KeyboardPressKeyEvent(Key.Space), []),
+    onTouchEnd: () => Arcane.msg.emit(new KeyboardReleaseKeyEvent(Key.Space), [])
   }),
   escButton: new EscButton(),
   extraButton: new ExtraButton({
-    action: () => {
-      Arcane.msg.emit(new MouseButtonHoldEvent('Right'), [])
-      setTimeout(() => {
-        Arcane.msg.emit(new MouseButtonReleaseEvent('Right'), [])
-      }, 50);
-    },
+    onTouchStart: () => Arcane.msg.emit(new MouseButtonHoldEvent('Right'), []),
+    onTouchEnd: () => Arcane.msg.emit(new MouseButtonReleaseEvent('Right'), []),
     text: 'Special Attack'
   })
 }

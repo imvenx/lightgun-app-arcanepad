@@ -1,7 +1,7 @@
 import { Arcane, ArcaneBaseEvent } from "arcanepad-web-sdk"
 import { LightgunApp } from "src/stores/AppsStore"
 import { SharedState } from "src/stores/SharedState"
-import { Key, KeyboardTypeEvent } from "./KeyboardEvents"
+import { Key, KeyboardPressKeyEvent, KeyboardReleaseKeyEvent, KeyboardTypeEvent } from "./KeyboardEvents"
 
 export type AMouseButton = 'Left' | 'Right' | 'Middle'
 
@@ -60,43 +60,42 @@ export class GunButtons {
 }
 
 export class GunButton {
-  constructor({ action, text }: GunButton = { action: () => { }, text: '' }) {
-    this.action = action
+  constructor({ onTouchStart, onTouchEnd, text }: GunButton = { onTouchStart: () => { }, text: '' }) {
+    this.onTouchStart = onTouchStart
+    this.onTouchEnd = onTouchEnd
     this.text = text
   }
-  action?: Function
+  onTouchStart?: Function
+  onTouchEnd?: Function
   text?: string
 }
 
 export class EscButton extends GunButton {
-  constructor({ action, text }: GunButton = {
-    action: () => {
-      Arcane.msg.emit(new KeyboardTypeEvent(Key.Escape), [])
-    },
+  constructor({ onTouchStart, onTouchEnd, text }: GunButton = {
+    onTouchStart: () => Arcane.msg.emit(new KeyboardPressKeyEvent(Key.Escape), []),
+    onTouchEnd: () => Arcane.msg.emit(new KeyboardReleaseKeyEvent(Key.Escape), []),
     text: 'Esc'
   }) {
-    super({ action, text })
+    super({ onTouchStart, onTouchEnd, text })
   }
 }
 
 export class ExtraButton extends GunButton {
-  constructor({ action, text }: GunButton = {
-    action: () => {
-      Arcane.msg.emit(new MouseButtonPressEvent('Middle'), [])
-    },
+  constructor({ onTouchStart, onTouchEnd, text }: GunButton = {
+    onTouchStart: () => Arcane.msg.emit(new MouseButtonHoldEvent('Middle'), []),
+    onTouchEnd: () => Arcane.msg.emit(new MouseButtonReleaseEvent('Middle'), []),
     text: 'Extra'
   }) {
-    super({ action, text })
+    super({ onTouchStart, onTouchEnd, text })
   }
 }
 
 export class ReloadButton extends GunButton {
-  constructor({ action, text }: GunButton = {
-    action: () => {
-      Arcane.msg.emit(new MouseButtonPressEvent('Right'), [])
-    },
+  constructor({ onTouchStart, onTouchEnd, text }: GunButton = {
+    onTouchStart: () => Arcane.msg.emit(new MouseButtonHoldEvent('Right'), []),
+    onTouchEnd: () => Arcane.msg.emit(new MouseButtonReleaseEvent('Right'), []),
     text: 'Reload'
   }) {
-    super({ action, text })
+    super({ onTouchStart, onTouchEnd, text })
   }
 }
